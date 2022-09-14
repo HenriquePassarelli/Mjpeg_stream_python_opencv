@@ -13,11 +13,11 @@ authToken = HTTPTokenAuth(scheme='Bearer')
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 users = {
-    "admin": "admin",  # YWRtaW46YWRtaW4=
+    "admin": "admin",  # Basic YWRtaW46YWRtaW4=
 }
 
 tokens = {
-    "admin": "admin"  # admin
+    "admin": "admin"  # Bearer admin
 }
 
 
@@ -39,10 +39,10 @@ def index():
     return "server online"
 
 
-# /basicStream?url=<base64 url>
 @app.route('/basicStream')
 @authBasic.login_required
 def http_basic_stream():
+    # /basicStream?url=<base64 url>
     userInput = request.args.get('url')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
@@ -50,13 +50,12 @@ def http_basic_stream():
 
     return Response(get_stream(url),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
-# /tokenStream?url=<base64 url>
 
 
 @app.route('/tokenStream')
 @authToken.login_required
 def http_token_stream():
+    # /tokenStream?url=<base64 url>
     userInput = request.args.get('url')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
@@ -65,16 +64,13 @@ def http_token_stream():
     return Response(get_stream(url),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-# /stream?url=<base64 url>
-
 
 @app.route('/stream')
 def http_stream():
-    print(id)
+    # /stream?url=<base64 url>
     userInput = request.args.get('url')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
-        print('hi')
         return Response('Missing parameters, eg. /stream?url=base64 url', status=400)
 
     return Response(get_stream(url),

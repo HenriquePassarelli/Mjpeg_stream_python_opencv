@@ -10,17 +10,18 @@ def get_stream(video_url):
         exit()
     while True:
         # Capture frame-by-frame
-        ret, frame = cap.read()
+        status, frame = cap.read()
+
         # if frame is read correctly ret is True
-        if not ret:
+        if not status:
             print("Can't receive frame (stream end?). Exiting ...")
             break
-        # Our operations on the frame come here
+        # create gray scale for the frame
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-        # Display the resulting frame
 
         if cv.waitKey(1) == ord('q'):
             break
+
 
         image = cv.imencode('.jpg', frame)[1]
         yield (b'--frame\r\n'

@@ -1,23 +1,34 @@
 # Mjpeg_stream_python_opencv
 
-Using Python along with opencv to read a Mjpeg stream 
+Using Python along with opencv to read any kind of video and stream it as Mjpeg
 
+### Make sure you have
 ```
 sudo apt install python3
 
 sudo apt install python3-pip
+```
 
-pip install opencv-python 
+### Install dependencies
+```
+pip3 install -r requirements.txt
 ```
 
 ### run script
 
 ```
-python3 read_stream.py "<video url>"
+python3 main.py 
+# or
+python3 main.py --port <port>   
 ```
 
-### stop script
+### How to use
+After starting the server you can choose one of the API calls, every API call is need to pass in the url the video url as base64, with that it will return a Mjpeg stream 
 
 ```
-# type q
+http://localhost:5000/stream?url=<base64 url>
 ```
+
+# Disclaimer
+
+It's for test, so the video fps, frame rate and performance can be slowed down
