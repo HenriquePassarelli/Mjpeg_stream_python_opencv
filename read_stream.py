@@ -21,7 +21,13 @@ def get_stream(video_url):
 
         if cv.waitKey(1) == ord('q'):
             break
-        cv.imshow('frame', gray) # to use the original color change the "gray" to "frame"
+
+        image = cv.imencode('.jpg', frame)[1]
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + image.tobytes() + b'\r\n\r\n')
+
+        # prompt the opencv preview with a gray scale frame
+        # cv.imshow('frame', gray)
     # When everything is done, release the capture
     cap.release()
     cv.destroyAllWindows()
