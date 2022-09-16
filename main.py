@@ -44,6 +44,9 @@ def index():
 def http_basic_stream():
     # /basicStream?url=<base64 url>
     userInput = request.args.get('url')
+    if userInput == None:
+        return Response(get_stream(0),
+                        mimetype='multipart/x-mixed-replace; boundary=frame')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
         return Response('Missing parameters, eg. /stream?url=base64 url', status=400)
@@ -57,6 +60,9 @@ def http_basic_stream():
 def http_token_stream():
     # /tokenStream?url=<base64 url>
     userInput = request.args.get('url')
+    if userInput == None:
+        return Response(get_stream(0),
+                        mimetype='multipart/x-mixed-replace; boundary=frame')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
         return Response('Missing parameters, eg. /stream?url=base64 url', status=400)
@@ -69,6 +75,9 @@ def http_token_stream():
 def http_stream():
     # /stream?url=<base64 url>
     userInput = request.args.get('url')
+    if userInput == None:
+        return Response(get_stream(0),
+                        mimetype='multipart/x-mixed-replace; boundary=frame')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
         return Response('Missing parameters, eg. /stream?url=base64 url', status=400)
