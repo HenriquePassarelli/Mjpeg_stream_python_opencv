@@ -1,7 +1,6 @@
 import cv2 as cv
 import sys
 
-
 def get_stream(video_url):
     cap = cv.VideoCapture(video_url)
 
