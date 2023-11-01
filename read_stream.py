@@ -16,7 +16,7 @@ def get_stream(video_url):
             print("Can't receive frame (stream end?). Exiting ...")
             break
         # create gray scale for the frame
-        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        # gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
         if cv.waitKey(1) == ord('q'):
             break
