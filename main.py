@@ -4,7 +4,7 @@ from flask_cors import CORS
 import argparse
 import base64
 
-from read_stream import get_stream
+from thread_read_stream import get_stream_thread
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret key here'
@@ -45,13 +45,13 @@ def http_basic_stream():
     # /basicStream?url=<base64 url>
     userInput = request.args.get('url')
     if userInput == None:
-        return Response(get_stream(0),
+        return Response(get_stream_thread(0),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
         return Response('Missing parameters, eg. /stream?url=base64 url', status=400)
 
-    return Response(get_stream(url),
+    return Response(get_stream_thread(url),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
@@ -61,13 +61,13 @@ def http_token_stream():
     # /tokenStream?url=<base64 url>
     userInput = request.args.get('url')
     if userInput == None:
-        return Response(get_stream(0),
+        return Response(get_stream_thread(0),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
         return Response('Missing parameters, eg. /stream?url=base64 url', status=400)
 
-    return Response(get_stream(url),
+    return Response(get_stream_thread(url),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
@@ -76,13 +76,13 @@ def http_stream():
     # /stream?url=<base64 url>
     userInput = request.args.get('url')
     if userInput == None:
-        return Response(get_stream(0),
+        return Response(get_stream_thread(0),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
     url = base64.b64decode(userInput).decode('utf-8')
     if not url.strip():
         return Response('Missing parameters, eg. /stream?url=base64 url', status=400)
 
-    return Response(get_stream(url),
+    return Response(get_stream_thread(url),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
