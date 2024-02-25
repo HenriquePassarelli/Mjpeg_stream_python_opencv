@@ -2,6 +2,8 @@
 
 Using Python along with opencv to read any kind of video and stream it as Mjpeg
 
+> Consider it as a simple Mjpeg server.
+
 ### Make sure you have
 ```
 sudo apt install python3
